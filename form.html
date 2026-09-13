@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Contact form for Ian Santiago's COP4813 Web Systems I website.">
+    <meta name="author" content="Ian Santiago">
+
+    <title>Contact Form - Ian Santiago</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Contact Form</h1>
+        <p>COP4813 Web Systems I</p>
+    </header>
+
+    <nav aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="assignments.html">My Assignments</a>
+        <a href="form.html">Contact Form</a>
+    </nav>
+
+    <main>
+        <section>
+            <h2>Contact Me</h2>
+
+            <p>
+                Please fill out the form below. All fields are required.
+            </p>
+
+            <form id="contactForm" method="post">
+
+                <fieldset>
+                    <legend>Personal Information</legend>
+
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName">
+
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName">
+
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email">
+
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone"
+                           placeholder="(000) 000-0000">
+
+                    <label for="birthdate">Birth Date:</label>
+                    <input type="date" id="birthdate" name="birthdate">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Address</legend>
+
+                    <label for="address">Street Address:</label>
+                    <input type="text" id="address" name="address">
+
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city">
+
+                    <label for="state">State:</label>
+                    <select id="state" name="state">
+                        <option value="">Select a state</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="NY">New York</option>
+                        <option value="TX">Texas</option>
+                        <option value="CA">California</option>
+                    </select>
+
+                    <label for="zip">ZIP Code:</label>
+                    <input type="text" id="zip" name="zip"
+                           placeholder="12345">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Message</legend>
+
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message"
+                              rows="6"></textarea>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Confirmation</legend>
+
+                    <label for="security">What is 5 + 3?</label>
+                    <input type="text" id="security" name="security">
+                </fieldset>
+
+                <button type="submit">Submit</button>
+                <button type="reset">Clear Form</button>
+
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>Created by Ian Santiago</p>
+    </footer>
+
+</body>
+</html>
