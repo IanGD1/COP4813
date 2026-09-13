@@ -34,21 +34,42 @@
                 Please review the information below before confirming.
             </p>
 
-            <div id="confirmationData">
-                <!-- Form information will be displayed here -->
-            </div>
+            <div id="confirmationData"></div>
 
             <button type="button" id="confirmButton">
                 Confirm Information
             </button>
 
-            <a href="form.html">Go Back and Edit</a>
+            <p>
+                <a href="form.html">Go Back and Edit</a>
+            </p>
         </section>
     </main>
 
     <footer>
         <p>Created by Ian Santiago</p>
     </footer>
+
+    <script>
+        const confirmationData = document.getElementById("confirmationData");
+
+        confirmationData.innerHTML = `
+            <p><strong>First Name:</strong> ${sessionStorage.getItem("firstName")}</p>
+            <p><strong>Last Name:</strong> ${sessionStorage.getItem("lastName")}</p>
+            <p><strong>Email:</strong> ${sessionStorage.getItem("email")}</p>
+            <p><strong>Phone:</strong> ${sessionStorage.getItem("phone")}</p>
+            <p><strong>Birth Date:</strong> ${sessionStorage.getItem("birthdate")}</p>
+            <p><strong>Address:</strong> ${sessionStorage.getItem("address")}</p>
+            <p><strong>City:</strong> ${sessionStorage.getItem("city")}</p>
+            <p><strong>State:</strong> ${sessionStorage.getItem("state")}</p>
+            <p><strong>ZIP Code:</strong> ${sessionStorage.getItem("zip")}</p>
+            <p><strong>Message:</strong> ${sessionStorage.getItem("message")}</p>
+        `;
+
+        document.getElementById("confirmButton").addEventListener("click", function() {
+            alert("Your information has been confirmed.");
+        });
+    </script>
 
 </body>
 </html>
