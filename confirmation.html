@@ -67,7 +67,37 @@
         `;
 
         document.getElementById("confirmButton").addEventListener("click", function() {
-            alert("Your information has been confirmed.");
+            const firstName = sessionStorage.getItem("firstName");
+            const lastName = sessionStorage.getItem("lastName");
+            const email = sessionStorage.getItem("email");
+            const phone = sessionStorage.getItem("phone");
+            const birthdate = sessionStorage.getItem("birthdate");
+            const address = sessionStorage.getItem("address");
+            const city = sessionStorage.getItem("city");
+            const state = sessionStorage.getItem("state");
+            const zip = sessionStorage.getItem("zip");
+            const message = sessionStorage.getItem("message");
+
+            const subject = "COP4813 Contact Form Submission";
+
+            const body =
+                "First Name: " + firstName + "\n" +
+                "Last Name: " + lastName + "\n" +
+                "Email: " + email + "\n" +
+                "Phone: " + phone + "\n" +
+                "Birth Date: " + birthdate + "\n" +
+                "Address: " + address + "\n" +
+                "City: " + city + "\n" +
+                "State: " + state + "\n" +
+                "ZIP Code: " + zip + "\n\n" +
+                "Message:\n" + message;
+
+            window.location.href =
+                "mailto:ianstarfish13@gmail.com?subject=" +
+                encodeURIComponent(subject) +
+                "&body=" +
+                encodeURIComponent(body);
+        });
         });
     </script>
 
