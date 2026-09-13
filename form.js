@@ -87,5 +87,20 @@ document.getElementById("contactForm").addEventListener("submit", function(event
     if (!valid) {
         event.preventDefault();
         alert(errors.join("\n"));
+        return;
     }
+
+    sessionStorage.setItem("firstName", firstName);
+    sessionStorage.setItem("lastName", lastName);
+    sessionStorage.setItem("email", email);
+    sessionStorage.setItem("phone", phone);
+    sessionStorage.setItem("birthdate", birthdate);
+    sessionStorage.setItem("address", address);
+    sessionStorage.setItem("city", city);
+    sessionStorage.setItem("state", state);
+    sessionStorage.setItem("zip", zip);
+    sessionStorage.setItem("message", message);
+
+    event.preventDefault();
+    window.location.href = "confirmation.html";
 });
