@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newton's Law of Cooling Calculator</title>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Newton's Law of Cooling Calculator</h1>
+</header>
+
+<main>
+
+    <p>Starting Temperature (°F):</p>
+    <input type="text" id="t0" value="100">
+
+    <p>Room Temperature (°F):</p>
+    <input type="text" id="ts" value="70">
+
+    <p>Cooling Constant:</p>
+    <input type="text" id="k" value="0.1">
+
+    <p>Minimum Time (minutes):</p>
+    <input type="text" id="tmin" value="0">
+
+    <p>Maximum Time (minutes):</p>
+    <input type="text" id="tmax" value="30">
+
+    <br><br>
+
+    <input type="button" value="Calculate" id="calculate">
+
+    <br><br>
+
+    <div id="output"></div>
+
+    <div id="chart"></div>
+
+</main>
+
+<script src="calculator.js"></script>
+
+</body>
+</html>
