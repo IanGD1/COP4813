@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spirograph</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        canvas {
+            border: 1px solid #333;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Spirograph</h2>
+
+<label for="R">R:</label>
+<input type="number" id="R" value="150">
+
+<label for="r">r:</label>
+<input type="number" id="r" value="50">
+
+<label for="O">O:</label>
+<input type="number" id="O" value="40">
+
+<button id="drawButton">Draw Spirograph</button>
+
+<br><br>
+
+<canvas id="canvas" width="500" height="500"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const button = document.getElementById("drawButton");
+
+button.addEventListener("click", drawSpirograph);
+
+function drawSpirograph() {
+    let R = Number(document.getElementById("R").value);
+    let r = Number(document.getElementById("r").value);
+    let O = Number(document.getElementById("O").value);
+
+    if (R <= 0 || r <= 0 || O < 0) {
+        alert("Please enter valid values for R, r, and O.");
+        return;
+    }
+
+    if (r > R) {
+        alert("r cannot be greater than R.");
+        return;
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+
+    let t = 0;
+    let firstPoint = true;
+
+    while (t <= 100 * Math.PI) {
+        let x = (R + r) * Math.cos(t) -
+                (r + O) * Math.cos(((R + r) / r) * t);
+
+        let y = (R + r) * Math.sin(t) -
+                (r + O) * Math.sin(((R + r) / r) * t);
+
+        let canvasX = canvas.width / 2 + x;
+        let canvasY = canvas.height / 2 + y;
+
+        if (firstPoint) {
+            ctx.moveTo(canvasX, canvasY);
+            firstPoint = false;
+        } else {
+            ctx.lineTo(canvasX, canvasY);
+        }
+
+        t += 0.01;
+    }
+
+    ctx.stroke();
+}
+</script>
+
+</body>
+</html>
