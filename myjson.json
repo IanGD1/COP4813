@@ -1,0 +1,44 @@
+{
+  "games": [
+    {
+      "title": "The Legend of Zelda: Breath of the Wild",
+      "developer": "Nintendo",
+      "genre": "Action-Adventure",
+      "releaseYear": 2017,
+      "platform": "Nintendo Switch / Wii U",
+      "rating": 4.9
+    },
+    {
+      "title": "God of War",
+      "developer": "Santa Monica Studio",
+      "genre": "Action-Adventure",
+      "releaseYear": 2018,
+      "platform": "PlayStation 4 / PC",
+      "rating": 4.8
+    },
+    {
+      "title": "Minecraft",
+      "developer": "Mojang Studios",
+      "genre": "Sandbox",
+      "releaseYear": 2011,
+      "platform": "PC / Console / Mobile",
+      "rating": 4.9
+    },
+    {
+      "title": "Super Mario Galaxy",
+      "developer": "Nintendo",
+      "genre": "Platformer",
+      "releaseYear": 2007,
+      "platform": "Nintendo Wii",
+      "rating": 4.9
+    },
+    {
+      "title": "Elden Ring",
+      "developer": "FromSoftware",
+      "genre": "Action RPG",
+      "releaseYear": 2022,
+      "platform": "PC / PlayStation / Xbox",
+      "rating": 4.8
+    }
+  ]
+}
