@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Game Database</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+        }
+
+        table {
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #222;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        #error {
+            text-align: center;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>My Favorite Video Games</h1>
+
+    <p id="error"></p>
+
+    <table id="gameTable">
+        <thead>
+            <tr>
+                <th>Game</th>
+                <th>Developer</th>
+                <th>Genre</th>
+                <th>Release Year</th>
+                <th>Platform</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+
+        <tbody id="gameTableBody">
+        </tbody>
+    </table>
+
+    <script>
+        fetch("myjson.json")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Could not load the JSON file.");
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                const tableBody = document.getElementById("gameTableBody");
+
+                data.games.forEach(game => {
+                    const row = document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${game.title}</td>
+                        <td>${game.developer}</td>
+                        <td>${game.genre}</td>
+                        <td>${game.releaseYear}</td>
+                        <td>${game.platform}</td>
+                        <td>${game.rating}</td>
+                    `;
+
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                document.getElementById("error").textContent =
+                    "Error loading game data: " + error.message;
+            });
+    </script>
+
+</body>
+</html>
