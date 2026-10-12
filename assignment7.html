@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 7 - Drag and Drop</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+            margin: 0;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 950px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        button {
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        #card-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            min-height: 150px;
+            padding: 20px 0;
+        }
+
+        .playing-card {
+            width: 100px;
+            height: 140px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            background-image: url("images/playing-cards.png");
+            background-repeat: no-repeat;
+            background-size: 1300px 560px;
+            cursor: grab;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .playing-card:active {
+            cursor: grabbing;
+        }
+
+        #discard-pile {
+            min-height: 175px;
+            border: 3px dashed #777;
+            border-radius: 10px;
+            background: #f8f8f8;
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        #discard-pile.drag-over {
+            background: #e1f5e8;
+            border-color: #218838;
+        }
+
+        .discarded-card {
+            width: 75px;
+            height: 105px;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+            background-image: url("images/playing-cards.png");
+            background-repeat: no-repeat;
+            background-size: 975px 420px;
+        }
+
+        #status {
+            font-weight: bold;
+            min-height: 24px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 500px) {
+            .playing-card {
+                width: 80px;
+                height: 112px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Playing Card Drag and Drop</h1>
+        <p>Click Deal Cards to draw five cards. Drag each card into the discard pile.</p>
+
+        <button id="deal-button" type="button">Deal Cards</button>
+
+        <h2>Your Cards</h2>
+        <div id="card-area">
+            Click "Deal Cards" to begin.
+        </div>
+
+        <h2>Discard Pile</h2>
+        <div id="discard-pile">
+            Drop cards here
+        </div>
+
+        <p id="status" role="status" aria-live="polite">Cards discarded: 0</p>
+    </main>
+
+    <script>
+        const cardArea = document.getElementById("card-area");
+        const discardPile = document.getElementById("discard-pile");
+        const dealButton = document.getElementById("deal-button");
+        const status = document.getElementById("status");
+
+        let discardedCount = 0;
+        let nextCardId = 0;
+
+        function getRandomCards(count) {
+            const cards = [];
+
+            while (cards.length < count) {
+                const card = Math.floor(Math.random() * 52);
+
+                if (!cards.includes(card)) {
+                    cards.push(card);
+                }
+            }
+
+            return cards;
+        }
+
+        function createCard(cardNumber) {
+            const card = document.createElement("div");
+            const column = cardNumber % 13;
+            const row = Math.floor(cardNumber / 13);
+
+            card.className = "playing-card";
+            card.draggable = true;
+            card.id = "card-" + nextCardId++;
+
+            card.style.backgroundPosition =
+                (-column * 100) + "px " + (-row * 140) + "px";
+
+            card.setAttribute("role", "img");
+            card.setAttribute("aria-label", "Playing card " + (cardNumber + 1));
+
+            card.addEventListener("dragstart", function (event) {
+                event.dataTransfer.setData("text/plain", card.id);
+                event.dataTransfer.effectAllowed = "move";
+                status.textContent = "Dragging a card. Drop it into the discard pile.";
+            });
+
+            return card;
+        }
+
+        function dealCards() {
+            cardArea.replaceChildren();
+            discardedCount = 0;
+            discardPile.replaceChildren();
+            status.textContent = "Cards discarded: 0";
+
+            const cards = getRandomCards(5);
+
+            cards.forEach(function (cardNumber) {
+                cardArea.appendChild(createCard(cardNumber));
+            });
+        }
+
+        dealButton.addEventListener("click", dealCards);
+
+        discardPile.addEventListener("dragover", function (event) {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = "move";
+            discardPile.classList.add("drag-over");
+        });
+
+        discardPile.addEventListener("dragleave", function (event) {
+            if (!discardPile.contains(event.relatedTarget)) {
+                discardPile.classList.remove("drag-over");
+            }
+        });
+
+        discardPile.addEventListener("drop", function (event) {
+            event.preventDefault();
+            discardPile.classList.remove("drag-over");
+
+            const cardId = event.dataTransfer.getData("text/plain");
+            const card = document.getElementById(cardId);
+
+            if (!card || !card.classList.contains("playing-card")) {
+                return;
+            }
+
+            const cardCopy = document.createElement("div");
+            cardCopy.className = "discarded-card";
+            cardCopy.style.backgroundPosition = card.style.backgroundPosition;
+            cardCopy.setAttribute("aria-label", card.getAttribute("aria-label"));
+            cardCopy.setAttribute("role", "img");
+
+            discardPile.appendChild(cardCopy);
+            card.remove();
+
+            discardedCount++;
+            status.textContent = "Cards discarded: " + discardedCount;
+        });
+    </script>
+</body>
+</html>
