@@ -218,7 +218,11 @@
 
             const cardCopy = document.createElement("div");
             cardCopy.className = "discarded-card";
-            cardCopy.style.backgroundPosition = card.style.backgroundPosition;
+            const column = parseInt(card.style.backgroundPositionX) / -100;
+            const row = parseInt(card.style.backgroundPositionY) / -140;
+
+            cardCopy.style.backgroundPosition =
+                (-column * 75) + "px " + (-row * 105) + "px";
             cardCopy.setAttribute("aria-label", card.getAttribute("aria-label"));
             cardCopy.setAttribute("role", "img");
 
