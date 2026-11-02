@@ -22,14 +22,17 @@ header h1 {
 /* Navigation menu */
 nav {
     background-color: #444444;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     padding: 12px;
 }
 
 nav a {
     color: white;
     text-decoration: none;
-    margin: 0 15px;
+    margin: 5px 15px;
+    padding: 8px 5px;
     font-weight: bold;
 }
 
@@ -41,6 +44,7 @@ nav a:focus {
 /* Main content */
 main {
     max-width: 900px;
+    box-sizing: border-box;
     margin: 30px auto;
     padding: 30px;
     background-color: white;
@@ -58,7 +62,7 @@ a {
     color: #0056b3;
 }
 
-a:focus {
+a:focus-visible {
     outline: 3px solid #ffbf47;
     outline-offset: 2px;
 }
@@ -127,4 +131,55 @@ button {
 button:hover,
 button:focus {
     background-color: #444444;
+}
+
+/* Mobile responsive layout */
+@media screen and (max-width: 768px) {
+
+    header {
+        padding: 25px 15px;
+    }
+
+    header h1 {
+        font-size: 26px;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        padding: 8px;
+    }
+
+    nav a {
+        margin: 2px 0;
+        padding: 12px;
+        display: block;
+    }
+
+    main {
+        width: 95%;
+        margin: 15px auto;
+        padding: 20px;
+    }
+
+    footer {
+        margin-top: 15px;
+    }
+}
+
+/* Smaller phone screens */
+@media screen and (max-width: 400px) {
+
+    header h1 {
+        font-size: 22px;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
 }
