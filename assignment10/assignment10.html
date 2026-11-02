@@ -1,9 +1,250 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Assignment 10 - Mobile Ready website implementation and Lighthouse analysis for COP4813.">
     <title>Assignment 10 - Mobile Ready</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        .report-section {
+            margin-bottom: 35px;
+        }
+
+        .report-section h2 {
+            border-bottom: 2px solid #444;
+            padding-bottom: 8px;
+        }
+
+        .report-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .score-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .score-table th,
+        .score-table td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .score-table th {
+            background-color: #444;
+            color: white;
+        }
+
+        .score {
+            font-weight: bold;
+            color: #008000;
+        }
+
+        .audit-image {
+            width: 100%;
+        }
+
+        @media screen and (max-width: 600px) {
+            .score-table th,
+            .score-table td {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Assignment 10 - Mobile Ready</h1>
+
+    <header>
+        <h1>Assignment 10 - Mobile Ready</h1>
+        <p>COP4813 Web Systems I</p>
+    </header>
+
+    <nav aria-label="Main navigation">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About Me</a>
+        <a href="../assignments.html">My Assignments</a>
+    </nav>
+
+    <main>
+
+        <section class="report-section">
+            <h2>Introduction</h2>
+
+            <p>
+                The purpose of this assignment was to make my website
+                mobile-friendly and test its accessibility, performance,
+                best practices, and SEO using Google Lighthouse.
+            </p>
+
+            <p>
+                I updated the CSS of my existing website to improve its
+                appearance and usability on smaller screens. The responsive
+                design allows the website to adjust to different screen
+                sizes while keeping the same navigation menu and features
+                available on desktop and mobile devices.
+            </p>
+
+            <p>
+                I tested the website using Opera's built-in developer tools
+                and mobile device emulation, including different iPhone
+                and Android screen sizes.
+            </p>
+        </section>
+
+        <section class="report-section">
+            <h2>Mobile Compatibility</h2>
+
+            <p>
+                The homepage was tested using mobile device emulation.
+                The navigation menu, images, and page content displayed
+                correctly on smaller screens. The layout adjusted to
+                different screen widths without requiring a separate
+                mobile webpage.
+            </p>
+        </section>
+
+        <section class="report-section">
+            <h2>Google Lighthouse Overall Results</h2>
+
+            <p>
+                I used Google Lighthouse in Navigation mode with the
+                Mobile device setting enabled. The following results
+                were obtained:
+            </p>
+
+            <table class="score-table">
+                <tr>
+                    <th>Category</th>
+                    <th>Score</th>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td class="score">99 / 100</td>
+                </tr>
+                <tr>
+                    <td>Accessibility</td>
+                    <td class="score">100 / 100</td>
+                </tr>
+                <tr>
+                    <td>Best Practices</td>
+                    <td class="score">100 / 100</td>
+                </tr>
+                <tr>
+                    <td>SEO</td>
+                    <td class="score">100 / 100</td>
+                </tr>
+            </table>
+
+            <h3>Overall Lighthouse Screenshot</h3>
+
+            <img
+                src="images/overall.png"
+                alt="Google Lighthouse overall results showing scores of 99, 100, 100, and 100"
+                class="report-image audit-image">
+        </section>
+
+        <section class="report-section">
+            <h2>Performance Analysis</h2>
+
+            <p>
+                The website received a performance score of 99 out of 100.
+                This indicates that the page loads quickly and performs
+                very well on mobile devices. The results show that the
+                website has very little blocking time and no layout
+                shifting during loading.
+            </p>
+
+            <img
+                src="images/performance.png"
+                alt="Google Lighthouse performance audit results"
+                class="report-image audit-image">
+        </section>
+
+        <section class="report-section">
+            <h2>Accessibility Analysis</h2>
+
+            <p>
+                The website received a perfect accessibility score of
+                100 out of 100. This indicates that the page follows
+                accessibility practices that help make its content
+                easier for users to access and navigate.
+            </p>
+
+            <img
+                src="images/accessibility.png"
+                alt="Google Lighthouse accessibility audit results"
+                class="report-image audit-image">
+        </section>
+
+        <section class="report-section">
+            <h2>Best Practices Analysis</h2>
+
+            <p>
+                The website received a perfect best practices score
+                of 100 out of 100. This indicates that the website
+                passed the best practices checks performed by
+                Lighthouse.
+            </p>
+
+            <img
+                src="images/best-practices.png"
+                alt="Google Lighthouse best practices audit results"
+                class="report-image audit-image">
+        </section>
+
+        <section class="report-section">
+            <h2>SEO Analysis</h2>
+
+            <p>
+                The website received a perfect SEO score of 100 out
+                of 100. This indicates that the page follows the
+                search engine optimization checks included in
+                Lighthouse.
+            </p>
+
+            <img
+                src="images/seo.png"
+                alt="Google Lighthouse SEO audit results"
+                class="report-image audit-image">
+        </section>
+
+        <section class="report-section">
+            <h2>Conclusion</h2>
+
+            <p>
+                Overall, the Lighthouse analysis showed that the
+                website performs very well in all four categories.
+                The mobile version maintains the same features and
+                navigation as the desktop version while adjusting
+                the layout for smaller screens.
+            </p>
+
+            <p>
+                The final Lighthouse scores were 99 for Performance
+                and 100 for Accessibility, Best Practices, and SEO.
+                These results demonstrate that the website is
+                responsive, accessible, and follows modern web
+                development practices.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Created by Ian Santiago</p>
+        <p>COP4813 Web Systems I</p>
+    </footer>
+
 </body>
 </html>
