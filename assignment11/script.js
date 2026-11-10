@@ -278,14 +278,13 @@ const courses = [
         credits: 3,
         category: "Required",
         prerequisites: [
-            {
-                any: ["CTS3348"],
-                all: []
-            },
-            {
-                all: ["CTS2321", "CET1600"]
-            }
-        ],
+    {
+        anyOf: [
+            { all: ["CTS3348"] },
+            { all: ["CTS2321", "CET1600"] }
+              ]
+         }
+      ],
         corequisites: ["CNT3104"],
         notes: "Requires CTS3348 OR both CTS2321 AND CET1600. CNT3104 is a co-requisite."
     },
@@ -432,14 +431,13 @@ const courses = [
         credits: 3,
         category: "Cybersecurity Elective",
         prerequisites: [
-            {
-                any: ["CTS3348"],
-                all: []
-            },
-            {
-                all: ["CTS2321", "CET1600"]
-            }
-        ],
+    {
+        anyOf: [
+            { all: ["CTS3348"] },
+            { all: ["CTS2321", "CET1600"] }
+            ]
+        }
+    ],
         corequisites: [],
         notes: "Prerequisite follows the Applied Cybersecurity alternative: CTS3348 OR (CTS2321 AND CET1600)."
     },
