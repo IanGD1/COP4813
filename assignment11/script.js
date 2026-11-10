@@ -481,3 +481,321 @@ const courses = [
     }
 
 ];
+
+// STUDENT COURSE TRACKING
+
+const completedCourses = new Set();
+const plannedCourses = new Set();
+
+
+// CHECK PREREQUISITES
+
+function checkPrerequisites(course) {
+
+    if (!course.prerequisites || course.prerequisites.length === 0) {
+        return true;
+    }
+
+    return course.prerequisites.every(group => {
+
+        // AND: Every listed course must be completed.
+        if (group.all) {
+            if (!group.all.every(id => completedCourses.has(id))) {
+                return false;
+            }
+        }
+
+        // OR: At least one listed course must be completed.
+        if (group.any) {
+            if (!group.any.some(id => completedCourses.has(id))) {
+                return false;
+            }
+        }
+
+        // Combined alternatives: At least one complete alternative
+        // must be satisfied.
+        if (group.anyOf) {
+            const satisfied = group.anyOf.some(option => {
+                return option.all.every(id => completedCourses.has(id));
+            });
+
+            if (!satisfied) {
+                return false;
+            }
+        }
+
+        return true;
+    });
+}
+
+
+// CHECK CO-REQUISITES
+
+function checkCorequisites(course) {
+
+    if (!course.corequisites || course.corequisites.length === 0) {
+        return true;
+    }
+
+    return course.corequisites.every(id =>
+        completedCourses.has(id) || plannedCourses.has(id)
+    );
+}
+
+
+// GET COURSE INFORMATION
+
+function getCourse(id) {
+    return courses.find(course => course.id === id);
+}
+
+
+// CREATE A COURSE CARD DYNAMICALLY
+
+function createCourseCard(course) {
+
+    const card = document.createElement("div");
+    card.className = "course-card";
+
+    const title = document.createElement("h3");
+    title.textContent = course.id;
+
+    const name = document.createElement("p");
+    name.textContent = course.name;
+
+    const credits = document.createElement("p");
+    credits.textContent = course.credits + " Credit Hours";
+
+    const status = document.createElement("span");
+    status.className = "status";
+
+    const eligible = checkPrerequisites(course);
+    const corequisitesMet = checkCorequisites(course);
+    const completed = completedCourses.has(course.id);
+    const planned = plannedCourses.has(course.id);
+
+    if (completed) {
+        status.classList.add("completed");
+        status.textContent = "Completed";
+    }
+    else if (eligible && corequisitesMet) {
+        status.classList.add("available");
+        status.textContent = "Eligible";
+    }
+    else if (eligible) {
+        status.classList.add("locked");
+        status.textContent = "Co-requisite Needed";
+    }
+    else {
+        status.classList.add("locked");
+        status.textContent = "Prerequisites Needed";
+    }
+
+    // VIEW DETAILS BUTTON
+
+    const detailsButton = document.createElement("button");
+    detailsButton.textContent = "View Details";
+
+    detailsButton.addEventListener("click", function() {
+        showCourseDetails(course.id);
+    });
+
+    // COMPLETE COURSE BUTTON
+
+    const completeButton = document.createElement("button");
+
+    completeButton.textContent = completed
+        ? "Undo Completion"
+        : "Mark Completed";
+
+    completeButton.addEventListener("click", function() {
+
+        if (completedCourses.has(course.id)) {
+            completedCourses.delete(course.id);
+        }
+        else {
+            completedCourses.add(course.id);
+            plannedCourses.delete(course.id);
+        }
+
+        renderCourses();
+    });
+
+    // ADD TO PLAN BUTTON
+
+    const planButton = document.createElement("button");
+
+    planButton.textContent = planned
+        ? "Remove from Plan"
+        : "Add to Plan";
+
+    planButton.disabled = !planned &&
+        (!eligible || !corequisitesMet || completed);
+
+    planButton.addEventListener("click", function() {
+
+        if (plannedCourses.has(course.id)) {
+            plannedCourses.delete(course.id);
+        }
+        else {
+            plannedCourses.add(course.id);
+        }
+
+        renderCourses();
+    });
+
+    card.appendChild(title);
+    card.appendChild(name);
+    card.appendChild(credits);
+    card.appendChild(status);
+
+    card.appendChild(document.createElement("br"));
+    card.appendChild(document.createElement("br"));
+
+    card.appendChild(detailsButton);
+    card.appendChild(completeButton);
+    card.appendChild(planButton);
+
+    return card;
+}
+
+
+// DISPLAY COURSE DETAILS
+
+function showCourseDetails(id) {
+
+    const course = getCourse(id);
+
+    if (!course) return;
+
+    const details = document.getElementById("courseDetails");
+
+    details.replaceChildren();
+
+    const title = document.createElement("h3");
+    title.textContent = course.id + " - " + course.name;
+
+    const credits = document.createElement("p");
+    credits.textContent = "Credits: " + course.credits;
+
+    const category = document.createElement("p");
+    category.textContent = "Category: " + course.category;
+
+    const prerequisites = document.createElement("p");
+
+    if (!course.prerequisites || course.prerequisites.length === 0) {
+        prerequisites.textContent = "Prerequisites: None listed";
+    }
+    else {
+        prerequisites.textContent =
+            "Prerequisites: " +
+            course.prerequisites.map(group => {
+
+                if (group.anyOf) {
+                    return group.anyOf.map(option =>
+                        option.all.join(" AND ")
+                    ).join(" OR ");
+                }
+
+                if (group.any) {
+                    return group.any.join(" OR ");
+                }
+
+                if (group.all) {
+                    return group.all.join(" AND ");
+                }
+
+                return "";
+            }).join(" AND ");
+    }
+
+    const corequisites = document.createElement("p");
+    corequisites.textContent =
+        "Co-requisites: " +
+        (course.corequisites.length
+            ? course.corequisites.join(", ")
+            : "None listed");
+
+    const notes = document.createElement("p");
+    notes.textContent = "Notes: " + (course.notes || "None");
+
+    details.appendChild(title);
+    details.appendChild(credits);
+    details.appendChild(category);
+    details.appendChild(prerequisites);
+    details.appendChild(corequisites);
+    details.appendChild(notes);
+}
+
+
+// RENDER ALL COURSE SECTIONS
+
+function renderCourses() {
+
+    const completedContainer =
+        document.getElementById("completedCourses");
+
+    const availableContainer =
+        document.getElementById("availableCourses");
+
+    const plannedContainer =
+        document.getElementById("plannedCourses");
+
+    completedContainer.replaceChildren();
+    availableContainer.replaceChildren();
+    plannedContainer.replaceChildren();
+
+    let availableCount = 0;
+    let plannedCredits = 0;
+
+    courses.forEach(course => {
+
+        const card = createCourseCard(course);
+
+        // Completed courses
+        if (completedCourses.has(course.id)) {
+            completedContainer.appendChild(card);
+        }
+
+        // All courses appear in the catalog.
+        availableContainer.appendChild(card.cloneNode(false));
+
+        // Re-create the catalog card so its event listeners work.
+        availableContainer.lastChild.replaceWith(
+            createCourseCard(course)
+        );
+
+        // Count courses that can be added to a plan.
+        if (
+            !completedCourses.has(course.id) &&
+            checkPrerequisites(course) &&
+            checkCorequisites(course)
+        ) {
+            availableCount++;
+        }
+
+        // Planned courses
+        if (plannedCourses.has(course.id)) {
+            plannedContainer.appendChild(createCourseCard(course));
+            plannedCredits += course.credits;
+        }
+
+    });
+
+    document.getElementById("completedCount").textContent =
+        completedCourses.size;
+
+    document.getElementById("availableCount").textContent =
+        availableCount;
+
+    document.getElementById("plannedCount").textContent =
+        plannedCourses.size;
+
+    document.getElementById("plannedCredits").textContent =
+        plannedCredits;
+}
+
+
+// START THE ADVISOR
+
+renderCourses();
