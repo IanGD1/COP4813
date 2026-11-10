@@ -663,67 +663,79 @@ function createCourseCard(course) {
 // DISPLAY COURSE DETAILS
 
 function showCourseDetails(id) {
-
     const course = getCourse(id);
 
-    if (!course) return;
+    if (!course) {
+        console.error("Course not found:", id);
+        return;
+    }
 
     const details = document.getElementById("courseDetails");
 
-    details.replaceChildren();
+    if (!details) {
+        console.error("Could not find courseDetails element.");
+        return;
+    }
+
+    details.innerHTML = "";
 
     const title = document.createElement("h3");
     title.textContent = course.id + " - " + course.name;
+    details.appendChild(title);
 
     const credits = document.createElement("p");
     credits.textContent = "Credits: " + course.credits;
+    details.appendChild(credits);
 
     const category = document.createElement("p");
     category.textContent = "Category: " + course.category;
+    details.appendChild(category);
 
     const prerequisites = document.createElement("p");
+    prerequisites.innerHTML = "<strong>Prerequisites:</strong> ";
 
     if (!course.prerequisites || course.prerequisites.length === 0) {
-        prerequisites.textContent = "Prerequisites: None listed";
+        prerequisites.append("None listed");
+    } else {
+        const groups = course.prerequisites.map(group => {
+            if (group.anyOf) {
+                return group.anyOf.map(option =>
+                    option.all.join(" AND ")
+                ).join(" OR ");
+            }
+
+            if (group.any) {
+                return group.any.join(" OR ");
+            }
+
+            if (group.all) {
+                return group.all.join(" AND ");
+            }
+
+            return "None listed";
+        });
+
+        prerequisites.append(groups.join(" AND "));
     }
-    else {
-        prerequisites.textContent =
-            "Prerequisites: " +
-            course.prerequisites.map(group => {
 
-                if (group.anyOf) {
-                    return group.anyOf.map(option =>
-                        option.all.join(" AND ")
-                    ).join(" OR ");
-                }
-
-                if (group.any) {
-                    return group.any.join(" OR ");
-                }
-
-                if (group.all) {
-                    return group.all.join(" AND ");
-                }
-
-                return "";
-            }).join(" AND ");
-    }
+    details.appendChild(prerequisites);
 
     const corequisites = document.createElement("p");
-    corequisites.textContent =
-        "Co-requisites: " +
-        (course.corequisites.length
+    corequisites.innerHTML = "<strong>Co-requisites:</strong> ";
+
+    corequisites.append(
+        course.corequisites && course.corequisites.length > 0
             ? course.corequisites.join(", ")
-            : "None listed");
+            : "None listed"
+    );
+
+    details.appendChild(corequisites);
 
     const notes = document.createElement("p");
-    notes.textContent = "Notes: " + (course.notes || "None");
+    notes.innerHTML = "<strong>Notes:</strong> ";
 
-    details.appendChild(title);
-    details.appendChild(credits);
-    details.appendChild(category);
-    details.appendChild(prerequisites);
-    details.appendChild(corequisites);
+    notes.append(course.notes || "No additional notes.");
+
     details.appendChild(notes);
 }
 
