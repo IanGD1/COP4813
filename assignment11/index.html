@@ -1,1 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSIT Quick Advisor | Daytona State College</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+    <header class="header">
+        <div class="header-content">
+            <div>
+                <h1>BSIT Quick Advisor</h1>
+                <p>Daytona State College | Information Technology</p>
+            </div>
+            <span class="catalog-label">2024-2025 Planner</span>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="welcome">
+            <h2>Plan Your BSIT Degree</h2>
+            <p>
+                Keep track of completed courses, check prerequisites,
+                and create your own course plan.
+            </p>
+        </section>
+
+        <section class="dashboard">
+
+            <div class="stat-card">
+                <h3>Completed</h3>
+                <p id="completedCount">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Available</h3>
+                <p id="availableCount">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Planned</h3>
+                <p id="plannedCount">0</p>
+            </div>
+
+        </section>
+
+        <section class="course-section">
+
+            <h2>My Completed Courses</h2>
+            <p>Select the courses you have already completed.</p>
+
+            <div id="completedCourses" class="course-grid"></div>
+
+        </section>
+
+        <section class="course-section">
+
+            <h2>Available Courses</h2>
+            <p>Courses you are eligible to take based on prerequisites.</p>
+
+            <div id="availableCourses" class="course-grid"></div>
+
+        </section>
+
+        <section class="course-section">
+
+            <h2>My Course Plan</h2>
+            <p>Courses you intend to take in the future.</p>
+
+            <div id="plannedCourses" class="course-grid"></div>
+
+            <h3>Total Planned Credit Hours: 
+                <span id="plannedCredits">0</span>
+            </h3>
+
+        </section>
+
+        <section class="course-section">
+
+            <h2>Course Information</h2>
+            <div id="courseDetails" class="details-box">
+                <p>Select a course to view its information.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>BSIT Quick Advisor | COP4813 Assignment 11</p>
+        <p>Based on the Daytona State College 2024-2025 BSIT planner.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
