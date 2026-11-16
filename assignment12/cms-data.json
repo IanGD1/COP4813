@@ -1,1 +1,70 @@
-
+{
+  "cms": [
+    {
+      "system": "WordPress",
+      "support": "Open source; developed by the WordPress community and supported by Automattic and other contributors.",
+      "technology": "PHP server-side language, MySQL or MariaDB database, and HTML, CSS, and JavaScript for the front end.",
+      "capabilities": "Offers thousands of themes and plugins, a built-in content editor, blogging tools, user management, and a REST API. Supports websites ranging from personal blogs to large publications.",
+      "limitations": "Plugins can introduce security vulnerabilities or compatibility problems. Websites require regular software, theme, and plugin updates. Extensive customization may require PHP knowledge.",
+      "example": "https://www.nasa.gov/",
+      "sources": [
+        "https://wordpress.org/about/requirements/",
+        "https://wordpress.org/plugins/",
+        "https://wordpress.org/showcase/"
+      ]
+    },
+    {
+      "system": "Drupal",
+      "support": "Open source; maintained by the Drupal community and supported by contributors and commercial development companies.",
+      "technology": "PHP server-side language with MySQL, MariaDB, PostgreSQL, or SQLite databases. Uses HTML, CSS, and JavaScript for the front end.",
+      "capabilities": "Provides customizable content types, themes, modules, user permissions, multilingual support, and API integration. Suitable for large and complex websites.",
+      "limitations": "Has a steeper learning curve than many other CMS platforms. Advanced customization often requires programming experience. Updates and module compatibility can require technical maintenance.",
+      "example": "https://www.healthfirst.org/",
+      "sources": [
+        "https://www.drupal.org/docs/getting-started/system-requirements",
+        "https://www.drupal.org/project/project_module",
+        "https://new.drupal.org/case-studies"
+      ]
+    },
+    {
+      "system": "Joomla",
+      "support": "Free and open source; maintained by the Open Source Matters organization and the Joomla community.",
+      "technology": "PHP server-side language with MySQL, MariaDB, or PostgreSQL databases. Uses HTML, CSS, and JavaScript for the front end.",
+      "capabilities": "Supports templates, extensions, user access controls, multilingual websites, content management, and built-in menu management.",
+      "limitations": "Can be more difficult for beginners to learn than simpler website builders. Some advanced features require third-party extensions, which may introduce compatibility and maintenance issues.",
+      "example": "https://www.joomla.org/",
+      "sources": [
+        "https://manual.joomla.org/docs/next/get-started/technical-requirements/",
+        "https://extensions.joomla.org/",
+        "https://www.joomla.org/"
+      ]
+    },
+    {
+      "system": "Ghost",
+      "support": "Open source; developed and maintained by the Ghost Foundation. Also offers managed hosting through Ghost(Pro).",
+      "technology": "Node.js server-side platform with a MySQL database. Uses JavaScript, HTML, and CSS, with Handlebars for themes.",
+      "capabilities": "Provides publishing tools, customizable themes, membership management, paid subscriptions, newsletters, and an API for connecting external applications.",
+      "limitations": "Primarily designed for publishing and membership websites rather than general-purpose websites. Has fewer extensions than WordPress, and custom functionality may require programming knowledge.",
+      "example": "https://thelever.com/",
+      "sources": [
+        "https://ghost.org/docs/",
+        "https://docs.ghost.org/hosting/",
+        "https://ghost.org/help/installing-a-theme/"
+      ]
+    },
+    {
+      "system": "Strapi",
+      "support": "Open source headless CMS developed by Strapi, Inc. with a commercial cloud hosting option.",
+      "technology": "Node.js server-side platform using JavaScript or TypeScript. Supports PostgreSQL, MySQL, MariaDB, and SQLite databases.",
+      "capabilities": "Provides customizable content types, an administrative content editor, user permissions, plugins, and REST and GraphQL APIs. Allows developers to connect content to different front-end applications.",
+      "limitations": "Does not provide a traditional built-in website front end or theme system. Requires developers to build or connect a separate front end. MongoDB is not supported.",
+      "example": "https://buzhalaestate.com/",
+      "sources": [
+        "https://docs.strapi.io/cms/quick-start",
+        "https://docs.strapi.io/cms/configurations/database",
+        "https://docs.strapi.io/cms/api/content-api",
+        "https://community.strapi.io/showcases"
+      ]
+    }
+  ]
+}
