@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 12 - CMS Review</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            color: #0066cc;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        #status {
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a class="back-link" href="../index.html">Back to Home</a>
+
+    <h1>Assignment 12 - CMS Review</h1>
+
+    <p>
+        This table compares five content management systems,
+        including their technology, capabilities, limitations,
+        and example websites.
+    </p>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>System</th>
+                    <th>Produced/Sold By</th>
+                    <th>Technology Base</th>
+                    <th>Major Capabilities</th>
+                    <th>Major Limitations</th>
+                    <th>Example Site</th>
+                </tr>
+            </thead>
+
+            <tbody id="cmsTable">
+            </tbody>
+        </table>
+    </div>
+
+    <p id="status">Loading CMS information...</p>
+
+</div>
+
+<script>
+    fetch("cms-data.json")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Could not load CMS data.");
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            const table = document.getElementById("cmsTable");
+
+            data.cms.forEach(cms => {
+
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td><strong>${cms.system}</strong></td>
+                    <td>${cms.support}</td>
+                    <td>${cms.technology}</td>
+                    <td>${cms.capabilities}</td>
+                    <td>${cms.limitations}</td>
+                    <td>
+                        <a href="${cms.example}" target="_blank">
+                            Visit Example
+                        </a>
+                        <br><br>
+                        <strong>Sources:</strong>
+                        <ul>
+                            ${cms.sources.map(source =>
+                                `<li><a href="${source}" target="_blank">Reference</a></li>`
+                            ).join("")}
+                        </ul>
+                    </td>
+                `;
+
+                table.appendChild(row);
+            });
+
+            document.getElementById("status").textContent =
+                "Successfully loaded all CMS information.";
+
+        })
+        .catch(error => {
+            document.getElementById("status").textContent =
+                "Error loading CMS information: " + error.message;
+        });
+</script>
+
+</body>
+</html>
