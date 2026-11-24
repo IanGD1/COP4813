@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Tech Challenge - An educational technology quiz game.">
+    <meta name="author" content="Ian Santiago">
+
+    <title>Tech Challenge</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1>Tech Challenge</h1>
+        <p>Test your knowledge of computers, networking, and cybersecurity!</p>
+    </header>
+
+    <main class="game-container">
+
+        <!-- Welcome Screen -->
+        <section id="start-screen" class="screen">
+            <h2>Welcome to Tech Challenge!</h2>
+
+            <p>
+                Think you know your technology?
+                Put your IT knowledge to the test!
+            </p>
+
+            <div class="instructions">
+                <h3>How to Play</h3>
+                <ul>
+                    <li>Answer 10 multiple-choice questions.</li>
+                    <li>Each question has four possible answers.</li>
+                    <li>Earn 10 points for every correct answer.</li>
+                    <li>Try to achieve the highest score possible!</li>
+                </ul>
+            </div>
+
+            <p class="maximum-score">Maximum Score: 100 Points</p>
+
+            <button id="start-button">Start Game</button>
+        </section>
+
+        <!-- Quiz Screen -->
+        <section id="quiz-screen" class="screen hidden">
+
+            <div class="game-info">
+                <p id="question-counter">Question 1 of 10</p>
+                <p id="score">Score: 0</p>
+            </div>
+
+            <div class="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+
+            <h2 id="question">Question goes here</h2>
+
+            <div id="answer-buttons" class="answer-grid">
+                <!-- Answer buttons are created with JavaScript -->
+            </div>
+
+            <p id="feedback" aria-live="polite"></p>
+
+            <button id="next-button" class="hidden">Next Question</button>
+
+        </section>
+
+        <!-- Results Screen -->
+        <section id="result-screen" class="screen hidden">
+
+            <h2>Game Complete!</h2>
+
+            <p id="final-score">Your score: 0 / 100</p>
+
+            <p id="result-message"></p>
+
+            <button id="restart-button">Play Again</button>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Tech Challenge | COP4813 Assignment 13</p>
+    </footer>
+
+</body>
+</html>
